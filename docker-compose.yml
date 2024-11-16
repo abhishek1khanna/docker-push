@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  container:
+    build:
+      context: .  # Specify the build context (current directory)
+    ports:
+      - "4000:3001"  # Map port 4000 on the host to port 3001 in the container
+    environment:
+      - NODE_ENV=development
+      - PORT=3001
+    command: npm run prod  # Run the production script
+    #volumes:
+    #  - D:\git-app:/app  # Bind mount the local directory to /app in the container
