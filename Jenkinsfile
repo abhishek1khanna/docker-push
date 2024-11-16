@@ -31,13 +31,24 @@ pipeline {
         stage('Test Application') {
             steps {
                 // Run your application tests (replace with actual commands)
-                sleep time: 40, unit: 'SECONDS'
+                sleep time: 60, unit: 'SECONDS'
                 bat 'curl -f http://localhost:4000/receive || exit 1'  // Windows command for curl testing
+            }
+        }
+
+        stage('Cleanup') {
+            steps {
+                // Stop and remove containers, networks, and volumes created by docker-compose
+                bat 'docker-compose down --volumes'  // Use bat for Windows
             }
         }
     }
 
     post {
+        always {
+            // Cleanup workspace after pipeline execution
+            cleanWs()
+        }
         success {
             echo 'Pipeline executed successfully!'
         }
