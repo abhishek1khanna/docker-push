@@ -31,6 +31,7 @@ pipeline {
         stage('Test Application') {
             steps {
                 // Run your application tests (replace with actual commands)
+                sleep time: 40, unit: 'SECONDS'
                 bat 'curl -f http://localhost:4000 || exit 1'  // Windows command for curl testing
             }
         }
