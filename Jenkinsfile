@@ -36,18 +36,17 @@ pipeline {
             }
         }
 
-        stage('Cleanup') {
+        /* stage('Cleanup') {
             steps {
-                // Stop and remove containers, networks, and volumes created by docker-compose
                 bat 'docker-compose down --volumes'  // Use bat for Windows
             }
-        }
+        }*/
     }
 
     post {
         always {
             // Cleanup workspace after pipeline execution
-            cleanWs()
+            // cleanWs()
         }
         success {
             echo 'Pipeline executed successfully!'
