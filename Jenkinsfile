@@ -35,17 +35,11 @@ pipeline {
                 bat 'curl -f http://localhost:4000/receive || exit 1'  // Windows command for curl testing
             }
         }
-
-        /* stage('Cleanup') {
-            steps {
-                bat 'docker-compose down --volumes'  // Use bat for Windows
-            }
-        }*/
     }
 
     post {
         always {
-            // Cleanup workspace after pipeline execution
+            // Optional cleanup of workspace after pipeline execution
             // cleanWs()
         }
         success {
