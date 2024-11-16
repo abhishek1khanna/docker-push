@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE_NAME = "docker-push-image" // Name for the Docker image
-        DOCKER_COMPOSE_FILE = "docker-compose.yml" // Path to the docker-compose.yml
+        DOCKER_IMAGE_NAME = "docker-push-image"  // Name for the Docker image
+        DOCKER_COMPOSE_FILE = "docker-compose.yml"  // Path to the docker-compose.yml
     }
 
     stages {
@@ -17,28 +17,28 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 // Build the Docker image using docker-compose
-                sh 'docker-compose build --no-cache'
+                bat 'docker-compose build --no-cache'  // Use bat for Windows
             }
         }
 
         stage('Run Docker Containers') {
             steps {
                 // Start the services using docker-compose
-                sh 'docker-compose up -d'
+                bat 'docker-compose up -d'  // Use bat for Windows
             }
         }
 
         stage('Test Application') {
             steps {
                 // Run your application tests (replace with actual commands)
-                sh 'curl -f http://localhost:4000 || exit 1'
+                bat 'curl -f http://localhost:4000 || exit 1'  // Windows command for curl testing
             }
         }
 
         stage('Cleanup') {
             steps {
                 // Stop and remove containers, networks, and volumes created by docker-compose
-                sh 'docker-compose down --volumes'
+                bat 'docker-compose down --volumes'  // Use bat for Windows
             }
         }
     }
