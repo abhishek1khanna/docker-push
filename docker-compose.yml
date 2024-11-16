@@ -9,6 +9,7 @@ services:
     environment:
       - NODE_ENV=development
       - PORT=3001
+      - MONGODB_URI=mongodb+srv://abhishek:abhishek@cluster0.9gscooe.mongodb.net/learn
     command: npm run prod  # Run the production script
     #volumes:
     #  - D:\git-app:/app  # Bind mount the local directory to /app in the container
