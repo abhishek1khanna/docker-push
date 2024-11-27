@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: node-app
+  template:
+    metadata:
+      labels:
+        app: node-app
+    spec:
+      containers:
+        - name: node-app
+          image: abhi1khanna/myapp:v1
+          env:
+            - name: NODE_ENV
+              valueFrom:
+                configMapKeyRef:
+                  name: node-app-config
+                  key: NODE_ENV
+            - name: PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: node-app-config
+                  key: PORT
+            - name: MONGODB_URI
+              valueFrom:
+                configMapKeyRef:
+                  name: node-app-config
+                  key: MONGODB_URI
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-mynode-app
+spec:
+  ports:
+    - name: http
+      port: 4000
+      targetPort: 3001
+  selector:
+    app: node-app
+  type: LoadBalancer

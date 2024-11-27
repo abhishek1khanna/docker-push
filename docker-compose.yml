@@ -1,15 +1,19 @@
-version: "3"
+version: "3"  # Docker Compose version
 
 services:
-  container:
+  container:  # Name of the service
     build:
-      context: .  # Specify the build context (current directory)
+      context: .  # The directory where Dockerfile resides
+    #image: myapp  # Name of the image to build
+    image: myapp:v3  # Name of the image to pull from docker hub
+
     ports:
-      - "4000:3001"  # Map port 4000 on the host to port 3001 in the container
-    environment:
+      - "4000:3001"  # Maps port 4000 on the host to port 3001 inside the container
+    environment:  # Environment variables to set in the container
       - NODE_ENV=development
       - PORT=3001
       - MONGODB_URI=mongodb+srv://abhishek:abhishek@cluster0.9gscooe.mongodb.net/learn
-    command: npm run prod  # Run the production script
+    command: npm run prod  # Override the default command in the Dockerfile with `npm run prod`
     #volumes:
-    #  - D:\git-app:/app  # Bind mount the local directory to /app in the container
+    #  - D:\git-app:/app  # Uncomment and modify to mount a local directory into the container
+    container_name: myapp_container  # Correct syntax
